@@ -1,0 +1,279 @@
+
+// Term1 (A)
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace lab1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            byte number1, number2;
+            byte result;
+            number1 = 127;
+            number2 = 127;
+            try
+            {
+                result = unchecked((byte)(number1 * number2));
+                Console.WriteLine("Unchecked result:" + result);
+                result = checked((byte)(number1 * number2));
+                Console.WriteLine("checked result:" + result);
+            }
+            catch (OverflowException exc)
+            {
+                Console.WriteLine(exc);
+            }
+            finally
+            {
+                Console.WriteLine("press Enter to Quit..");
+                Console.ReadLine();
+            }
+        }
+    }
+}
+
+output:
+      Unchecked result:1
+System.OverflowException: Arithmetic operation resulted in an overflow.
+   at lab1.Program.Main(String[] args) in E:\#c\lab1\lab1\Program.cs:line 20
+press Enter to Quit..
+
+
+
+
+//(B)
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                Console.WriteLine("Enter the First number:");
+                int num1 = Convert.ToInt32(Console.ReadLine());
+
+                Console.WriteLine("Enter the Second number:");
+                int num2 = Convert.ToInt32(Console.ReadLine());
+
+                int result = num1 / num2;
+                Console.WriteLine("Result of division:" + result);
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Error:please enter only numeric values:");
+            }
+            catch (DivideByZeroException)
+            {
+                Console.WriteLine("Error:Division by Zero is not allowed");
+            }
+            finally
+            {
+                Console.WriteLine("Program execution finshed(Finally block always runs).");
+                Console.ReadLine();
+            }
+        }
+    }
+}
+
+output:
+      Enter the First number:
+10
+Enter the Second number:
+5
+Result of division:2
+Program execution finshed(Finally block always runs).
+
+//(c)
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace lab_c
+{
+    class Program
+    {
+        static void checkage(int age)
+        {
+            if (age < 0)
+            {
+                throw new ArgumentException("Age cannot be negative");
+            }
+            Console.WriteLine("Your age is :" + age);
+        }
+        static void Main()
+        {
+            try
+            {
+                Console.WriteLine("Enter your age");
+                int age = Convert.ToInt32(Console.ReadLine());
+
+                checkage(age);
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine("caught an Exception:" + ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine("program finshed(finally block executed).");
+                Console.ReadLine();
+            }
+        }
+
+    }
+}
+ output:
+      Enter your age
+22
+Your age is :22
+program finshed(finally block executed).
+
+
+
+
+
+
+//Term3
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace lab3
+{
+    class Mylist
+    {
+        string[] names;
+        public Mylist()
+        {
+            names = new string[10];
+            for (int i = 0; i < 10; i++)
+            {
+                names[i] = "No name";
+            }
+        }
+        public string this[int pos]
+        {
+            get
+            {
+                return names[pos];
+            }
+            set
+            {
+                names[pos] = value;
+            }
+        }
+        public int this[string name]
+        {
+            get
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    if (names[i].Equals(name))
+                    {
+                        return i + 1;
+                    }
+                }
+                return -1;
+            }
+            set
+            {
+                names[value] = name;
+            }
+        }
+    }
+
+class Program
+    {
+        static void Main(string[] args)
+        {
+            Mylist list = new Mylist();
+            list[0] = "Myname";
+            list["yourname"] = 4;
+            Console.WriteLine("Myname is at position:" + list["Myname"]);
+            Console.WriteLine("Name at position 4 is:" + list[4]);
+            Console.ReadKey();
+        }
+    }
+}
+output:
+      Myname is at position:1
+Name at position 4 is:yourname
+
+
+//Term4
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace lab4
+{
+    class BankDetails
+    {
+        public float balance;
+        private int accno;
+
+        public float Balance
+        {
+            get
+            {
+                return balance;
+            }
+            set
+            {
+                balance = value;
+            }
+        }
+            public int Accno
+            {
+                get{
+                    return accno;
+                }
+                set{
+                    accno=value;
+                }}
+
+class Program
+    {
+        static void Main(string[] args)
+        {
+            BankDetails b=new BankDetails();
+            Console.WriteLine("Enter the Acc No");
+            b.accno=int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter the balance");
+            b.Balance=float.Parse(Console.ReadLine());
+            Console.WriteLine("Account no:"+b.accno);
+            Console.WriteLine("Balance :"+b.Balance);
+            Console.ReadKey();
+
+
+        }
+    }
+}
+}
+
+
+output:
+      Enter the Acc No
+1234567
+Enter the balance
+6000000
+Account no:1234567
+Balance :6000000
+
+    
